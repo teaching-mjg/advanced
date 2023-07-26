@@ -40,4 +40,4 @@ dat_longer = dat_longer %>%
 dat_longer = dat_longer %>% 
   pivot_wider(names_from=which_stat, values_from = blood)
 
-dat_longer <- dat_longer %>% mutate(upper = Avg+(SD*0.1), lower=Avg-(SD*.1))
+dat_longer <- dat_longer %>% mutate(upper = Avg+(0.5*(SD/sqrt(18))), lower=Avg-(0.5*(SD/sqrt(18))))
