@@ -1,0 +1,23 @@
+---
+title: "Leone data"
+format: html
+---
+
+for the study we had 18 participants who participated in a double-blind randomised cross-over intervention study. For the data attached to this email, participants' glucose, insulin, and glucagon blood levels were measured at blood drawings at baseline, 15, 30, 45, 60, 90, 120, and 180 minutes. During the study, participants either received a control drink of sucrose only or a drink containing sucrose and L-Arabinose (called Ara) the one week and vice versa the second week. 
+
+I need to produce three separate graphs for Glucose, Insulin, and Glucagon responses for the two different interventions. 
+
+
+```{r}
+source("script.R")
+```
+
+
+```{r}
+ggplot(dat_longer, aes(x=Time, y=Avg, color=treatment))+
+  facet_wrap(~which_sugar, scales="free_y", nrow=3) +
+  stat_summary(geom='point', fun=mean) +
+  stat_summary(geom='line', fun=mean) +
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=5)
+```
+
