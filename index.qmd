@@ -8,8 +8,10 @@ for the study we had 18 participants who participated in a double-blind randomis
 I need to produce three separate graphs for Glucose, Insulin, and Glucagon responses for the two different interventions. 
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 source("script.R")
+library(dataviz)
+library(tidyverse)
 ```
 
 
