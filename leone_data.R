@@ -48,17 +48,24 @@ dat = dat %>%
 ggplot(dat, aes(y=value, x=time, color=Treatment, fill=Treatment, lty=Treatment)) + 
   facet_wrap(~measure, scales="free_y",nrow=3) +
   #geom_smooth() +
-  stat_summary(position=position_dodge(width=5), geom='point', fun=mean, pch=21, size=3)+
-  stat_summary(position=position_dodge(width=5), geom='errorbar', width=7, fun.data=mean_se)+
-  stat_summary(position=position_dodge(width=5), geom='line', fun=mean, lwd=1)+
-  theme_bw() + theme(panel.grid = element_blank())+
+  stat_summary(position=position_dodge(width=5), geom='point', fun=mean, pch=21)+
+  stat_summary(position=position_dodge(width=5), geom='errorbar', width=7, fun.data=mean_se, lty=1)+
+  stat_summary(position=position_dodge(width=5), geom='line', fun=mean)+
+  theme_bw() + 
+  theme(#panel.grid = element_blank(), 
+    panel.grid.minor.x = element_blank(),
+    legend.position = "top",
+    plot.caption = element_text(hjust = 0))+
   scale_x_continuous(breaks=unique(dat$time))+
   scale_color_manual(values=c("grey50", "lightgreen"))+
-  scale_fill_manual(values=c("grey50", "lightgreen"))
+  scale_fill_manual(values=c("grey50", "lightgreen"))+
+  labs(
+    title="my experimentr",
+    subtitle="this is the subtitlr",
+    caption="This i the capotiojn", 
+  )
 
 
-
-
-
+ggsave("leone_plot.png", width=4, height=5)
 
 
