@@ -17,15 +17,20 @@ names(dat2)[6]="glucagon"
 dat1 = dat1 %>% select(-VTC)
 dat2 = dat2 %>% select(-c(VTC, Week))
 
-dat1 = dat1 %>% mutate(glucose=str_remove(glucose, "\\*") %>% as.numeric() )
+dat1 = dat1 %>%  mutate(glucose = str_remove(glucose, "\\*") %>% as.numeric() )
 
-both=full_join(dat1, dat2)
+# MERGE 
+
+both = full_join(dat1, dat2)
 
 both = both %>% 
   mutate(Treatment=
            factor(Treatment, 
                   levels=c(573, 214), 
                   labels=c("sucrose", "sucrose + arabinose")))
+
+both = both %>% select(participant, Treatment, time,
+                       glucose, insulin, glucagon) 
 
 dat = both %>% 
   pivot_longer(cols=c(glucose, insulin, glucagon),
@@ -37,6 +42,8 @@ dat = dat %>%
                         labels=c("glucose", "insulin", "glucagon")
   )
   )
+
+
 
 ggplot(dat, aes(y=value, x=time, color=Treatment, fill=Treatment, lty=Treatment)) + 
   facet_wrap(~measure, scales="free_y",nrow=3) +
