@@ -6,3 +6,6 @@ link to raincloud plots:
 
 link to Hadley Wickham text book, free
 [https://r4ds.hadley.nz/](https://r4ds.hadley.nz/)
+
+link to glasgow psych psyteachr:
+[https://github.com/PsyTeachR](https://github.com/PsyTeachR)
