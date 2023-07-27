@@ -7,12 +7,12 @@ dat = dat %>%  filter(!is.na(Time))
 
 dat = dat %>% mutate(`Avg. glucose - Suc`= as.numeric(`Avg. glucose - Suc`))
 
-dat = dat %>% mutate(pid = seq_along(dat$Time)) %>% relocate(pid)
+#dat = dat %>% mutate(pid = seq_along(dat$Time)) %>% relocate(pid)
 
 names(dat)
 
 dat_longer = dat %>% pivot_longer(
-  cols=3:14,
+  cols=2:13,
   names_to=c("which_stat", "which_sugar", "dash", "which", "add", "more"),
   names_sep=" ",
   values_to="blood"
@@ -34,10 +34,13 @@ dat_longer = dat_longer %>%
   select(-c(which, dash, add, more))
 
 dat_longer = dat_longer %>% 
-  mutate(which_stat=as_factor(which_stat),
-         which_sugar=as_factor(which_sugar))
+  mutate(which_stat = as_factor(which_stat),
+         which_sugar = factor(which_sugar, 
+                              levels=c("Insulin", "Glucagon", "Glucose"),
+                              labels=c("Insul", "Glucag", "Gluc")))
   
-dat_longer = dat_longer %>% 
+dat_wider= dat_longer %>% 
   pivot_wider(names_from=which_stat, values_from = blood)
 
-dat_longer <- dat_longer %>% mutate(upper = Avg+(0.5*(SD/sqrt(18))), lower=Avg-(0.5*(SD/sqrt(18))))
+
+dat_wider <- dat_wider %>% mutate(upper = Avg+(0.5*(SD/sqrt(18))), lower=Avg-(0.5*(SD/sqrt(18))))
